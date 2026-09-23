@@ -1,0 +1,50 @@
+# Configuracion del evaluador. Todo se puede sobreescribir por variables de entorno:
+#   SEMIF_API_URL, TWITTER_EVAL_CSV, TWITTER_EVAL_LIMIT, TWITTER_EVAL_RESULTS_DIR
+
+# API SemIf ya montada y corriendo.
+semif_api_url = "http://localhost:8000"
+
+# Dataset (CSV sin cabecera).
+csv_path = "archive/twitter_training.csv"
+
+# Filas a clasificar por defecto. 0 = todo el archivo.
+limit = 300
+# "head" = primeras N filas en orden; "random" = muestra aleatoria reproducible.
+sample = "head"
+seed = 13
+
+request_timeout_s = 120.0
+ready_timeout_s = 300.0
+# Recorte defensivo del texto enviado como state (SemIf no trunca: falla si desborda).
+max_state_chars = 4000
+
+# Indices de columnas del CSV (0-based). A=0, B=1, C=2 (label), D=3 (texto).
+id_column = 0
+topic_column = 1
+label_column = 2
+text_column = 3
+
+# Criterio en lenguaje natural que SemIf aplica al texto de cada fila.
+question = "What is the sentiment of this tweet about the given topic?"
+
+# Servidor de la interfaz.
+host = "127.0.0.1"
+preferred_port = 8050
+results_dir = "results"
+
+# Clases a elegir, tal como aparecen en la columna C. Cada descripcion se envia al modelo.
+[[labels]]
+id = "positive"
+description = "The tweet expresses a positive, favorable or supportive sentiment about the topic."
+
+[[labels]]
+id = "negative"
+description = "The tweet expresses a negative, critical or unfavorable sentiment about the topic."
+
+[[labels]]
+id = "neutral"
+description = "The tweet is factual or informational and expresses no clear positive or negative sentiment about the topic."
+
+[[labels]]
+id = "irrelevant"
+description = "The tweet is not actually about the topic, or is off-topic noise."

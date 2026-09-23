@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tweet Sentiment Eval · SemIf</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot" id="api-dot"></span>
+      <h1>Tweet Sentiment Eval</h1>
+      <span class="sub">SemIf · clasificación en tiempo real</span>
+    </div>
+    <div class="api-info" id="api-info">consultando API…</div>
+  </header>
+
+  <section class="panel controls">
+    <div class="control">
+      <label for="limit">Filas</label>
+      <input id="limit" type="number" min="0" step="10" value="300">
+      <span class="hint">0 = todo el archivo</span>
+    </div>
+    <div class="control">
+      <label for="sample">Muestra</label>
+      <select id="sample">
+        <option value="head">Primeras N</option>
+        <option value="random">Aleatoria</option>
+      </select>
+    </div>
+    <div class="control buttons">
+      <button id="start" class="primary">Iniciar</button>
+      <button id="pause" disabled>Pausar</button>
+      <button id="stop" disabled>Detener</button>
+    </div>
+    <div class="status-line">
+      <span id="status-badge" class="badge idle">idle</span>
+      <span id="status-line">Listo para clasificar.</span>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div class="stat"><span class="k">Progreso</span><span class="v" id="s-progress">0 / 0</span></div>
+    <div class="stat"><span class="k">Accuracy</span><span class="v" id="s-acc">—</span></div>
+    <div class="stat"><span class="k">Latencia media</span><span class="v" id="s-lat">—</span></div>
+    <div class="stat"><span class="k">ETA</span><span class="v" id="s-eta">—</span></div>
+    <div class="stat"><span class="k">Errores</span><span class="v" id="s-err">0</span></div>
+  </section>
+
+  <div class="bar"><div class="bar-fill" id="bar-fill"></div></div>
+
+  <main class="grid">
+    <section class="panel">
+      <h2>Fila actual</h2>
+      <div id="current" class="current empty">Sin clasificaciones todavía.</div>
+    </section>
+
+    <section class="panel">
+      <h2>Matriz de confusión <span class="muted">real → predicho</span></h2>
+      <div id="confusion" class="empty">—</div>
+    </section>
+
+    <section class="panel wide">
+      <h2>Últimas filas <span class="muted" id="recent-count"></span></h2>
+      <div class="table-wrap">
+        <table id="recent">
+          <thead>
+            <tr><th>#</th><th>Texto</th><th>Real</th><th>Predicho</th><th>Score</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Métricas por clase</h2>
+      <div id="per-class" class="empty">—</div>
+    </section>
+
+    <section class="panel">
+      <h2>Clases originales en el dataset</h2>
+      <div id="gold-dist" class="empty">—</div>
+      <div class="dataset-meta" id="dataset-meta"></div>
+    </section>
+  </main>
+
+  <section class="panel final" id="final" hidden>
+    <h2>Comparación final con las etiquetas originales</h2>
+    <div class="final-summary" id="final-summary"></div>
+    <h3>Ejemplos mal clasificados</h3>
+    <div class="table-wrap">
+      <table id="errors">
+        <thead><tr><th>#</th><th>Texto</th><th>Real</th><th>Predicho</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="muted" id="artifacts"></p>
+  </section>
+
+  <script src="/app.js"></script>
+</body>
+</html>
