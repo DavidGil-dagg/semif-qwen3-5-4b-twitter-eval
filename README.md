@@ -8,9 +8,7 @@ Evalúa en vivo la clasificación de sentimiento de tweets con un LLM open-sourc
 
 Grabación del proyecto en funcionamiento. Se ve la clasificación fila por fila, la matriz de confusión actualizándose en vivo y la comparación final con las etiquetas originales:
 
-<video controls width="100%">
-  <source src="https://github.com/user-attachments/assets/05a524c2-c54a-4a2f-b952-63a3d00baa32" type="video/mp4">
-</video>
+<video src="https://github.com/user-attachments/assets/05a524c2-c54a-4a2f-b952-63a3d00baa32" controls width="100%"></video>
 
 Respaldo en el repo: [`Video/demo.mp4`](Video/demo.mp4)
 
